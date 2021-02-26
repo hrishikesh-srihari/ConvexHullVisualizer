@@ -75,6 +75,45 @@ public class ConvexHullVisualizer {
                 this.repaint();
             }
         }
+
+        void drawPoint (Graphics g, Color c, Point p) {
+            g.setColor(c);
+            g.fillOval(p.x, this.getHeight() - p.y, this.rad, this.rad);
+        }
+
+        // Draws the line between p1 and p2.
+        void drawLine (Graphics g, Color c, Point p1, Point p2) {
+            g.setColor(Color.BLACK);
+            g.drawLine(p1.x, this.getHeight() - p1.y, p2.x, this.getHeight() - p2.y);
+        }
+
+        @Override
+        public void paint(Graphics g) {
+            // Draw all points to ensure that non-hull points are drawn
+            for (Point p : this.p) {
+                this.drawPoint(g, Color.BLACK, p);
+            }
+
+            // Draw every point in the intermediate hull
+            Point last = null;
+            for (Point p : this.hull) {
+                if (last != null) {
+                    drawLine(g, Color.BLACK, p, last);
+                }
+                this.drawPoint(g, Color.GREEN, p);
+                last = p;
+            }
+
+            if (this.search.isEmpty()) {
+                // Draw final line to connect cycle
+                if (last != null && !this.hull.isEmpty()) {
+                    drawLine(g, Color.BLACK, this.hull.peekFirst(), last);
+                }
+            } else if (this.run) {
+                // Pick the next point to look at
+                drawPoint(g, Color.ORANGE, this.search.peek());
+            }
+        }
     }
 
     public static void main(String args[]) {
