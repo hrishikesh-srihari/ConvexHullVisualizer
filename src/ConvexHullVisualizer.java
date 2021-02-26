@@ -51,6 +51,30 @@ public class ConvexHullVisualizer {
         double getCrossProd(Point p1, Point p2, Point p3) {
             return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
         }
+
+        void run() throws InterruptedException {
+            this.hull.push(this.getLow());
+            this.search.remove(this.getLow());
+            this.search.sort(Comparator.comparingDouble(this::getAngle));
+            this.run = true;
+            Thread.sleep(this.del);
+            this.repaint();
+
+            while (this.search.size() > 0) {
+                Point top;
+                Point nextToTop;
+                Point p = this.search.pop();
+                do {
+                    top = this.hull.pop();
+                    nextToTop = this.hull.peek();
+                } while (nextToTop != null && this.getCrossProd(nextToTop, top, p) < 0);
+                this.hull.push(top);
+                this.hull.push(p);
+
+                Thread.sleep(this.del);
+                this.repaint();
+            }
+        }
     }
 
     public static void main(String args[]) {
