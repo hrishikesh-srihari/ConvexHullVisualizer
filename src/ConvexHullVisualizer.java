@@ -116,7 +116,15 @@ public class ConvexHullVisualizer {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InterruptedException {
+        JFrame frame = new JFrame();
+        CHull convex = new CHull();
 
+        frame.setSize(ConvexHullVisualizer.width, ConvexHullVisualizer.height);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.add(convex);
+        frame.setVisible(true);
+
+        convex.run();
     }
 }
