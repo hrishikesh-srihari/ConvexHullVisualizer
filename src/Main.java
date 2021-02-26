@@ -1,8 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
+import java.lang.*;
 
-public class ConvexHullVisualizer {
+class Main {
     private static int width = 700;
     private static int height = 700;
 
@@ -21,8 +22,8 @@ public class ConvexHullVisualizer {
 
             //Creates 10 equally distributed points on the plane
             while (this.p.size() < 15) {
-                int x = ConvexHullVisualizer.width/20 + rand.nextInt(ConvexHullVisualizer.width - ConvexHullVisualizer.width/10);
-                int y = ConvexHullVisualizer.height/20 + rand.nextInt(ConvexHullVisualizer.height - ConvexHullVisualizer.height/10);
+                int x = Main.width/20 + rand.nextInt(Main.width - Main.width/10);
+                int y = Main.height/20 + rand.nextInt(Main.height - Main.height/10);
             }
 
             this.search = new LinkedList<>(p);
@@ -120,7 +121,7 @@ public class ConvexHullVisualizer {
         JFrame frame = new JFrame();
         CHull convex = new CHull();
 
-        frame.setSize(ConvexHullVisualizer.width, ConvexHullVisualizer.height);
+        frame.setSize(Main.width, Main.height);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(convex);
         frame.setVisible(true);
