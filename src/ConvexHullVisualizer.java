@@ -33,6 +33,15 @@ public class ConvexHullVisualizer {
             this.rad = 15; //Radius is 15
         }
 
+        Point getLow() {
+            if (this.hull.isEmpty()) {
+                return Collections.min(this.search, (p1, p2) -> {
+                   if (p1.y == p2.y) return Integer.compare(p1.x, p2.x);
+                   else return Integer.compare(p1.y, p2.y);
+                });
+            }
+            return this.hull.peekFirst();
+        }
     }
 
     public static void main(String args[]) {
