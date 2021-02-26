@@ -42,6 +42,15 @@ public class ConvexHullVisualizer {
             }
             return this.hull.peekFirst();
         }
+
+        double getAngle(Point p) {
+            Point low = this.getLow();
+            return Math.atan2(p.y - low.y, p.x - low.x);
+        }
+
+        double getCrossProd(Point p1, Point p2, Point p3) {
+            return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
+        }
     }
 
     public static void main(String args[]) {
